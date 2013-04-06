@@ -131,7 +131,18 @@ south01 = GRID([[5],[1],[1]])
 south = T([1,2,3])([-0.5,6.5,20])(R([1,2])(-PI/2)(STRUCT([south00,south01])))
 
 
-building = STRUCT([building,east,south,north])
+west00 = GRID([[5],[1],[-10,31]])
+west01 = GRID([[-4,37.5],[1],[13]]);
+west02 = GRID([[-13,28.5],[1],[-13,28]])
+west03 = GRID([[-4,9],[1],[-17,3]])
+west04 = GRID([ [-4,1,-1,6],[1],[-17,24] ])
+west05 = GRID([ [14],[1],[-26,15]   ])
+west =T([1,2])([-0.5,7])(STRUCT([west00,west01,west02,west03,west04,west05]))
+
+
+
+building = STRUCT([building,east,south,north,west])
+
 VIEW(building)
 
 
