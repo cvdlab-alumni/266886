@@ -178,7 +178,10 @@ step2d = MKPOL([[[0,0],[0,1.7],[2.66,1.7],[2.66,1.7],[2.66,0]],[[1,2,3,4,5]],Non
 ##voglio  estrudere su y ed scambiare y e z
 step3d = MAP([S1,S3,S2])(PROD([step2d,Q(4.5)]));
 scalinata =  STRUCT(NN(7)([step3d,T([1,3])([1.5,1.56])]));
-scale = T(2)(-19)(STRUCT([T([1,2])([21.5,20])(scalinata),T([1,2,3])([5.5,20,10])(scalinata),T([1,2,3])([21.5,20,20])(scalinata)]))
+stair1 = T([1,2])([21.5,20])(scalinata)
+stair2 = T([1,2,3])([5.5,20,10])(scalinata)
+stair3 = T([1,2,3])([21.5,20,20])(scalinata)
+scale = T(2)(-19)(STRUCT([stair1,stair2,stair3]))
 
 building = STRUCT([building,scale])
 VIEW(building)
