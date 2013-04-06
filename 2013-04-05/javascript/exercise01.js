@@ -21,7 +21,7 @@ pillars1 = STRUCT([pillars10,pillars11,T([0,1,2])([2,19.5,10])(pillar12),T([0,1,
 pillars2 = T([0,1,2])([-0.5,-0.5,20])(STRUCT([pillars20,T([1])([20])(pillars21)]))
 pillars = STRUCT([pillars0, pillars1,pillars2,pillars3])
 
-buildings = STRUCT([pillars])
+building = STRUCT([T([1])([-19])(pillars)])
 
 
-DRAW(buildings);
+DRAW(building);
