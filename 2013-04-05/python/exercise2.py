@@ -59,8 +59,8 @@ def fullcircle(R,r):
 
 floor01 = R([1,2])(-PI/2)(fullcircle(5,0.5));
 floor02 = R([1,2])(PI)(fullcircle(1.5,0.5));
-
-floor03 = PROD([SOLIDIFY(POLYLINE([ [29.5,25],[-0.5,25],[-0.5,19.5],[5,19.5],[5,8],[29.5,8],[29.5,25]])),Q(1)])
+##cosi posso estrudere i muri con la versione commentata si vede il piano terra 2d
+##floor03 = PROD([SOLIDIFY(POLYLINE([ [29.5,25],[-0.5,25],[-0.5,19.5],[5,19.5],[5,8],[29.5,8],[29.5,25]])),Q(1)])
 floor03 = GRID([[31],[-24,1]])
 floor04 = GRID([ [1],[-19.5,5] ])
 floor05 = GRID([ [5],[-19.5,1] ])
