@@ -169,6 +169,13 @@ exercise4 = STRUCT([T([2,3])([-0.5,3.35])(exercise3),T([1,2,3])([1.2,0,5,-0.2])(
 ##latoSopra = STRUCT([scocca2,scocca3,scocca4,scocca5,scocca6,scocca7,scocca8,scocca9,scocca10,scocca11])
 latoSopra = STRUCT([bucoRuota1,lato1,bucoRuota2,scocca1,scocca2,scocca3,scocca4,scocca5,scocca6,scocca7,scocca8,scocca9,scocca10,scocca11,scocca12])
 
-superficieEsterna = OFFSET([0.1,0.1,2.5])(latoSopra)
+superficieEsterna = COLOR(YELLOW)(OFFSET([0.1,0,2.5])(latoSopra))
 
-VIEW(STRUCT([exercise4,T([1,2,3])([-0.1,-0.5,3.4])(superficieEsterna)]))
+
+finestrinoOrigin = STRUCT([finestrino1,finestrino2,finestrino3,finestrino4])
+finestrino2=JOIN([finestrinoOrigin,finestrino1])
+superficieFinestrino = COLOR(BLACK)(finestrino2)
+
+VIEW(STRUCT([exercise4,T([1,2,3])([-0.1,-0.5,3.4])(superficieEsterna),S([1,2])([1.6,1.6])(T([1,2,3])([1,0.22,3.3])(superficieFinestrino)),S([1,2])([1.6,1.6])(T([1,2,3])([1,0.22,5.9])(superficieFinestrino))]))
+
+
