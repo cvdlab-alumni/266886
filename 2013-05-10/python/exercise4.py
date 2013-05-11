@@ -110,6 +110,57 @@ retro = S(2)(0.75)(STRUCT([vetroRetro,targa,freccia,T(1)(2.5)(R([1,3])(PI)(frecc
 exercise2 = STRUCT([T([1,3])([5.3,2.5])(R([1,3])(-PI/2)(retro)),T([1,2])([-1.1,0.2])(R([1,3])(PI/2)(fronte)),profiloMuso,profiloLati])
 
 
-VIEW(exercise2)
+dom = PROD([INTERVALS(2*PI)(32),INTERVALS(2*PI)(32)])
+
+def Toro2d(R,r):
+   def Toro2d0(p):
+       u,v = p;
+       return (r*COS(u)+R)*COS(v),(r*COS(u)+R)*SIN(v);
+   return MAP(Toro2d0)(dom)
+
+copertone = COLOR(BLACK)(PROD([Toro2d(0.5,0.1),Q(0.15)]))
+cerchione = PROD([Toro2d(0.35,0.05),Q(0.15)])
+vertici = [[0,0,0],[0,0,0],[0.25,0,0.2],[0.5,0,0]]
+asse = CYLINDER([0.1,2.6])(64)
+curva1 = BEZIER(S1)([[0,0,0],[0,1,0.5],[0,10,0]])
+curva2 = BEZIER(S1)([[1,0,0],[1,1,0.5],[1,10,0]])
+superficie = MAP(BEZIER(S2)([curva1,curva2]))(domain)
+raggio = OFFSET([0.2,0.1,0.2])(superficie)
+raggio2 = T([1,3])([-0.05,0.1])(S([1,2,3])([0.09,0.03,0.3])(raggio))
+
+raggi=STRUCT([raggio2,R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2)])
+
+ruota = S([1,2])(0.8)(STRUCT([copertone,cerchione,raggi]))
+ruote2= STRUCT([ruota,T(3)(-2.5)(asse),R([2,3])(PI)(T(3)(2.35)(ruota))])
+
+exercise3 = STRUCT([exercise2,T([1,3])([0.5,2.5])(ruote2),T([1,3])([4.55,2.4])(ruote2)])
+
+
+
+curvaVolante = BEZIER(S1)([[2,0,0.5],[2.5,0,1],[3,0,0.5]])
+semiVolante = MAP(ROTATIONALSURFACE(curvaVolante))(PROD([INTERVALS(1)(36),INTERVALS(2*PI)(36)]))
+sterzoVolante = COLOR(BLACK)(STRUCT([semiVolante,T(3)(1)(R([1,3])(PI)(semiVolante))]))
+
+curvaCentro1 = BEZIER(S1)([[0,0,0],[2.5,0.5,0],[3,0,0]])
+curvaCentro2 = BEZIER(S1)([[0,1,0],[2.5,0.5,0],[3,1,0]])
+arco01 = MAP(BEZIER(S2)([curvaCentro1,curvaCentro2]))(domain)
+arco = T([1,3])([0.2,0.3])(COLOR(BLACK)(S([1,2,3])([0.75,0.7,0.7])(OFFSET([0.3,0.3,0.3])(arco01))))
+arcoSotto = S([1,2])([1.2,1.5])(arco)
+archi = STRUCT([arco,T(2)(0.9)(R([1,2])(PI)(arco)),T([1,2])([0.55,-2.25])(R([1,2])(PI/2)(arcoSotto))])
+dom = PROD([INTERVALS(2*PI)(32),INTERVALS(2*PI)(32)])
+def Toro2d(R,r):
+   def Toro2d0(p):
+       u,v = p;
+       return (r*COS(u)+R)*COS(v),(r*COS(u)+R)*SIN(v);
+   return MAP(Toro2d0)(dom)
+
+stemma = T([1,2,3])([-0.15,0.5,0.1])(COLOR(RED)(PROD([Toro2d(0.2,0.2),Q(0.05)])))
+
+volante = STRUCT([archi,sterzoVolante,stemma])
+
+exercise4 = STRUCT([T([2,3])([-0.5,3.35])(exercise3),T([1,2,3])([1.2,0,5,-0.2])(S([1,2,3])([0.1,0.1,0.1])(T([1,2,3])([-1,1,1.3])(R([1,3])(PI/2)(volante))))])
+
+VIEW(exercise4)
+
 
 

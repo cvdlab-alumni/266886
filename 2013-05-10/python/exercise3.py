@@ -110,6 +110,32 @@ retro = S(2)(0.75)(STRUCT([vetroRetro,targa,freccia,T(1)(2.5)(R([1,3])(PI)(frecc
 exercise2 = STRUCT([T([1,3])([5.3,2.5])(R([1,3])(-PI/2)(retro)),T([1,2])([-1.1,0.2])(R([1,3])(PI/2)(fronte)),profiloMuso,profiloLati])
 
 
-VIEW(exercise2)
+dom = PROD([INTERVALS(2*PI)(32),INTERVALS(2*PI)(32)])
+
+def Toro2d(R,r):
+   def Toro2d0(p):
+       u,v = p;
+       return (r*COS(u)+R)*COS(v),(r*COS(u)+R)*SIN(v);
+   return MAP(Toro2d0)(dom)
+
+copertone = COLOR(BLACK)(PROD([Toro2d(0.5,0.1),Q(0.15)]))
+cerchione = PROD([Toro2d(0.35,0.05),Q(0.15)])
+vertici = [[0,0,0],[0,0,0],[0.25,0,0.2],[0.5,0,0]]
+asse = CYLINDER([0.1,2.6])(64)
+curva1 = BEZIER(S1)([[0,0,0],[0,1,0.5],[0,10,0]])
+curva2 = BEZIER(S1)([[1,0,0],[1,1,0.5],[1,10,0]])
+superficie = MAP(BEZIER(S2)([curva1,curva2]))(domain)
+raggio = OFFSET([0.2,0.1,0.2])(superficie)
+raggio2 = T([1,3])([-0.05,0.1])(S([1,2,3])([0.09,0.03,0.3])(raggio))
+
+raggi=STRUCT([raggio2,R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2),R([1,2])(PI/4),(raggio2)])
+
+ruota = S([1,2])(0.8)(STRUCT([copertone,cerchione,raggi]))
+ruote2= STRUCT([ruota,T(3)(-2.5)(asse),R([2,3])(PI)(T(3)(2.35)(ruota))])
+
+exercise3 = STRUCT([exercise2,T([1,3])([0.5,2.5])(ruote2),T([1,3])([4.55,2.4])(ruote2)])
+
+
+VIEW(exercise3)
 
 
